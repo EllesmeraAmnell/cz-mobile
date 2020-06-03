@@ -25,6 +25,7 @@ public class Requester
         public static final String c_strNameField = "name";
         public static final String c_strSurnameField = "surname";
     }
+
     public static interface RequesterConsts
     {
         public static final String c_strMethodPost = "POST";
@@ -33,6 +34,7 @@ public class Requester
         public static final String c_strMethodDelete = "DELETE";
 
         public static final String c_strURL = "http://194.67.90.186/api/";
+
         public static final String c_strLogin = "login";
         public static final String c_strSignup = "signup";
         public static final String c_strQuiz = "quiz";

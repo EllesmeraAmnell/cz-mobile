@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
 
 public class LoginFragment extends Fragment {
 
@@ -54,10 +56,18 @@ public class LoginFragment extends Fragment {
                 }
 
                 String strTargetURL = Requester.RequesterConsts.c_strURL + Requester.RequesterConsts.c_strLogin;
-                new TaskProcessRequest().execute(
-                        strTargetURL,
-                        postBody,
-                        Requester.RequesterConsts.c_strMethodPost);
+                String result = "";
+                try {
+                     result = new TaskProcessRequest().execute(
+                            strTargetURL,
+                            postBody,
+                            Requester.RequesterConsts.c_strMethodPost).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, result);
             }
         });
 
