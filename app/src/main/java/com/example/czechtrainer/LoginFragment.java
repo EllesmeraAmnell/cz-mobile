@@ -12,28 +12,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-
 
 public class LoginFragment extends Fragment {
 
-    OkHttpClient client = new OkHttpClient();
+    private static final String TAG = "LoginUI";
+
     TextView txtString;
     EditText edittext1;
     EditText edittext2;
 
-    public String url = "http://194.67.90.186/api/login";
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public LoginFragment() {
         // Required empty public constructor
@@ -55,86 +42,30 @@ public class LoginFragment extends Fragment {
                 String login = edittext1.getText().toString();
                 String password = edittext2.getText().toString();
 
+                String postBody = "";
+                try {
+                    postBody = Requester.formJSONBody(
+                            Requester.RequesterConsts.c_strLogin,
+                            login,
+                            password);
+                } catch (Exception e) {
+                    // Ругаем внизу
+                    e.printStackTrace();
+                }
 
-                String postBody = "{\"login\":\"" + login + "\"," + "\"password\":\"" + password + "\"}";
-                String res="";
-
-                new classPostRequest().execute(url, postBody);
-//                try {
-//                     res = postRequest(url, postBody);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-              //  Toast.makeText(getActivity(), String.valueOf(res), Toast.LENGTH_LONG).show();
+                String strTargetURL = Requester.RequesterConsts.c_strURL + Requester.RequesterConsts.c_strLogin;
+                new TaskProcessRequest().execute(
+                        strTargetURL,
+                        postBody,
+                        Requester.RequesterConsts.c_strMethodPost);
             }
         });
 
         return rootView;
     }
 
-    public String postRequest(String targetURL, String postBody) throws Exception
-    {
-        HttpURLConnection connection = null;
-        try {
-            //Create connection
-            URL url = new URL(targetURL);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("accept", "application/json");
-            connection.setRequestProperty("Content-Type",
-                    "application/json");
 
-
-            connection.setUseCaches(false);
-            connection.setDoOutput(true);
-
-
-            //Send request
-            DataOutputStream wr = new DataOutputStream (
-                    connection.getOutputStream());
-            wr.writeBytes(postBody);
-            wr.close();
-
-            //Get Response
-            int status = connection.getResponseCode();
-            if(status != 400 && status != 500)
-            {
-                InputStream is = connection.getInputStream();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-                StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-                String line;
-                while ((line = rd.readLine()) != null) {
-                    response.append(line);
-                    response.append('\r');
-                }
-                rd.close();
-                return response.toString();
-            }
-            else
-            {
-                InputStream errorStream = connection.getErrorStream();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(errorStream));
-                StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-                String line;
-                while ((line = rd.readLine()) != null) {
-                    response.append(line);
-                    response.append('\r');
-                }
-                rd.close();
-                return response.toString();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-    }
-
-    class classPostRequest extends AsyncTask<String, Void, String> {
+    class TaskProcessRequest extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -145,8 +76,9 @@ public class LoginFragment extends Fragment {
         protected String doInBackground(String... strParams) {
             String res = "";
             try {
-                res = postRequest(strParams[0], strParams[1]);
+                res = Requester.execRequest(strParams[0], strParams[1], strParams[2]);
             } catch (Exception e) {
+                Log.e(TAG, "Got exception" + e.getMessage());
                 e.printStackTrace();
             }
             return res;
@@ -155,7 +87,37 @@ public class LoginFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Log.d(TAG, "Result: " + result);
             Toast.makeText(getActivity(), String.valueOf(result), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // TODO: потом перенести в фрагмент квиза
+    // в onPostExecute должна быть перерисовка всякой дичи для квиза
+    class QuizRequest extends AsyncTask<String, Void, String> {
+
+        String m_strSubsystem = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strParams) {
+            String res = "";
+            try {
+                res = Requester.execRequest(strParams[0], strParams[1], strParams[2]);
+            } catch (Exception e) {
+                Log.e(TAG, "Got exception" + e.getMessage());
+                e.printStackTrace();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
         }
     }
 
