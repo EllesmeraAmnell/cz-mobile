@@ -1,5 +1,6 @@
 package com.example.czechtrainer;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ public class LoginFragment extends Fragment {
     EditText edittext1;
     EditText edittext2;
 
+    LoginActivity loginActivity;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -34,6 +36,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
+        loginActivity = (LoginActivity) getActivity();
         edittext1 = (EditText) rootView.findViewById(R.id.et_email);
         edittext2 = (EditText) rootView.findViewById(R.id.et_password);
         Button buttonLogin = (Button) rootView.findViewById(R.id.btn_login);
@@ -62,6 +65,7 @@ public class LoginFragment extends Fragment {
                             strTargetURL,
                             postBody,
                             Requester.RequesterConsts.c_strMethodPost).get();
+                     loginActivity.SwitchToMain();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

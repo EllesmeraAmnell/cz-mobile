@@ -17,8 +17,9 @@
     <string name="log_in">Войти</string>
 
     <!-- Navigation strings -->
-    <string name="quiz">Упранения</string>
-    <string name="words">Словарь</string>
-    <string name="profile">Профиль</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_quiz">Упражнения</string>
+    <string name="title_words">Словарь</string>
+    <string name="title_profile">Профиль</string>
 
 </resources>
