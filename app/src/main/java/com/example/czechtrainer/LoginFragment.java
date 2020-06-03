@@ -65,7 +65,6 @@ public class LoginFragment extends Fragment {
                             strTargetURL,
                             postBody,
                             Requester.RequesterConsts.c_strMethodPost).get();
-                     loginActivity.SwitchToMain();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -102,7 +101,12 @@ public class LoginFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG, "Result: " + result);
-            Toast.makeText(getActivity(), String.valueOf(result), Toast.LENGTH_LONG).show();
+            if (result.contains("message")) {
+                Toast.makeText(getActivity(), "Не удалось войти", Toast.LENGTH_LONG).show();
+            }
+            else {
+                loginActivity.SwitchToMain();
+            }
         }
     }
 

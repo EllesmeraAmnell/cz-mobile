@@ -130,7 +130,7 @@ public class Requester
             InputStream streamReceiver = null;
 
             // Если прилетела ошибка, то результаты не из того стрима прилетают
-            if(status != 400 && status != 500)
+            if(status == 200)
             {
                 streamReceiver = connection.getInputStream();
             }
