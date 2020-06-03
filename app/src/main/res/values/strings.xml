@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Czech Trainer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Login signup strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="swipe_left_for_register">Смахните для регистрации</string>
     <string name="login_email">E-mail или Логин</string>
@@ -15,4 +15,10 @@
     <string name="user_surname">Фамилия</string>
     <string name="login">Логин</string>
     <string name="log_in">Войти</string>
+
+    <!-- Navigation strings -->
+    <string name="quiz">Упранения</string>
+    <string name="words">Словарь</string>
+    <string name="profile">Профиль</string>
+
 </resources>
