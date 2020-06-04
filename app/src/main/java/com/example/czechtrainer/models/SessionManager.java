@@ -1,4 +1,4 @@
-package com.example.czechtrainer;
+package com.example.czechtrainer.models;
 
 import java.util.HashMap;
 
@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class SessionManagement {
+import com.example.czechtrainer.LoginActivity;
+
+public class SessionManager {
     SharedPreferences pref;
     Editor editor;
     Context _context;
@@ -21,7 +23,7 @@ public class SessionManagement {
 
     public static final String KEY_EMAIL = "email";
 
-    public SessionManagement(Context context){
+    public SessionManager(Context context){
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();

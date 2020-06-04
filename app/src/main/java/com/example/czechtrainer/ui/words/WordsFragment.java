@@ -15,20 +15,33 @@ import com.example.czechtrainer.R;
 
 public class WordsFragment extends Fragment {
 
-    private WordsViewModel wordsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        wordsViewModel =
-                ViewModelProviders.of(this).get(WordsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_words, container, false);
-//        final TextView textView = root.findViewById(R.id.text_dashboard);
-//        wordsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
+
+//        int BOOKSHELF_ROWS = 5;
+//        int BOOKSHELF_COLUMNS = 5;
+//
+//        TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+//
+//        for (int i = 0; i < BOOKSHELF_ROWS; i++) {
+//
+//            TableRow tableRow = new TableRow(this);
+//            tableRow.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//                    LayoutParams.WRAP_CONTENT));
+//            tableRow.setBackgroundResource(R.drawable.shelf);
+//
+//            for (int j = 0; j < BOOKSHELF_COLUMNS; j++) {
+//                ImageView imageView = new ImageView(this);
+//                imageView.setImageResource(R.drawable.book);
+//
+//                tableRow.addView(imageView, j);
 //            }
-//        });
+//
+//            tableLayout.addView(tableRow, i);
+//        }
+
         return root;
     }
 }

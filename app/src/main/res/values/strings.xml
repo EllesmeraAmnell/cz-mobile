@@ -21,5 +21,7 @@
     <string name="title_quiz">Упражнения</string>
     <string name="title_words">Словарь</string>
     <string name="title_profile">Профиль</string>
+    <string name="questionStatocText">Выберите правильный перевод слова</string>
+    <string name="nextWord">Следующее слово</string>
 
 </resources>

@@ -1,47 +1,74 @@
 package com.example.czechtrainer.ui.quiz;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.widget.Toast;
 
 import com.example.czechtrainer.R;
 import com.example.czechtrainer.Requester;
+import com.example.czechtrainer.models.QuizObjectModel;
+
+import org.json.JSONException;
 
 import java.util.concurrent.ExecutionException;
 
 public class QuizFragment extends Fragment {
 
-    private QuizViewModel quizViewModel;
+    private QuizObjectModel quizObjectModel;
+    private TextView textQuestion;
+    private Button[] buttonOptions = new Button[4];
 
     private static final String TAG = "QuizUI";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        quizViewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
         View root = inflater.inflate(R.layout.fragment_quiz, container, false);
-        final TextView textView = root.findViewById(R.id.text_question);
-        quizViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+        textQuestion = root.findViewById(R.id.text_question);
+        buttonOptions[0] = root.findViewById(R.id.button1);
+        buttonOptions[1] = root.findViewById(R.id.button2);
+        buttonOptions[2] = root.findViewById(R.id.button3);
+        buttonOptions[3] = root.findViewById(R.id.button4);
+        final Button buttonNext = (Button) root.findViewById(R.id.buttonNext);
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                for (Button buttonOption : buttonOptions) {
+                    buttonOption.setBackgroundResource(R.drawable.et_custom);
+                }
+                performQuizRequest();
             }
         });
+        performQuizRequest();
 
-        UpdateQuizContent();
+        View.OnClickListener optionClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                String answer = quizObjectModel.answer;
+                for (Button buttonOption : buttonOptions) {
+                    if (buttonOption.getText().equals(answer)){
+                        buttonOption.setBackgroundResource(R.drawable.btn_green);
+                    }
+                    else{
+                        buttonOption.setBackgroundResource(R.drawable.btn_red);
+                    }
+                }
+            }
+        };
+
+        for (Button buttonOption : buttonOptions) {
+            buttonOption.setOnClickListener(optionClickListener);
+        }
+
         return root;
     }
 
-    private void UpdateQuizContent() {
+    private void performQuizRequest() {
         String postBody = "";
         try {
             postBody = Requester.formJSONBody(
@@ -68,8 +95,6 @@ public class QuizFragment extends Fragment {
 
     class QuizRequest extends AsyncTask<String, Void, String> {
 
-        String m_strSubsystem = null;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -90,7 +115,20 @@ public class QuizFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+            try {
+                quizObjectModel = new QuizObjectModel(result);
+                updateControlsText();
+            } catch (JSONException e) {
+                Log.e(TAG, "Got exception" + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateControlsText() {
+        textQuestion.setText(quizObjectModel.question);
+        for (int i = 0; i < buttonOptions.length; i++) {
+            buttonOptions[i].setText(quizObjectModel.options[i]);
         }
     }
 }
