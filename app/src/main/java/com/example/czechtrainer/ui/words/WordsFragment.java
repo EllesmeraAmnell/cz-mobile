@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,20 +17,32 @@ import com.example.czechtrainer.R;
 
 public class WordsFragment extends Fragment {
 
-    private WordsViewModel wordsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        wordsViewModel =
-                ViewModelProviders.of(this).get(WordsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_words, container, false);
-//        final TextView textView = root.findViewById(R.id.text_dashboard);
-//        wordsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
+
+//        int BOOKSHELF_ROWS = 5;
+//        int BOOKSHELF_COLUMNS = 5;
+//
+//        TableLayout tableLayout = (TableLayout) root.findViewById(R.id.tableLayout);
+//
+//        for (int i = 0; i < BOOKSHELF_ROWS; i++) {
+//
+//            TableRow tableRow = new TableRow(getActivity());
+//            tableRow.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT));
+//            tableRow.setBackgroundResource(R.drawable.et_custom);
+//
+//            for (int j = 0; j < BOOKSHELF_COLUMNS; j++) {
+//                TextView textView = (TextView)root.findViewById(R.id.section_bp_label);
+//                textView.setText("123qwe");
+//                tableRow.addView(textView);
 //            }
-//        });
+//
+//            tableLayout.addView(tableRow, i);
+//        }
+
         return root;
     }
 }

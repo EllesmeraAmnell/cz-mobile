@@ -90,6 +90,7 @@ public class Requester {
             String strTargetURL,
             String strBody,
             String astrMethod) {
+        Log.i(TAG, astrMethod + " Request to url: " + strTargetURL + " with params " + strBody);
         HttpURLConnection connection = null;
         try {
             //Create connection
@@ -97,22 +98,23 @@ public class Requester {
             connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod(astrMethod);
-            //connection.setRequestProperty("accept", "application/json");
+            connection.setRequestProperty("accept", "application/json");
+            connection.setUseCaches(false);
 
-            if (!astrMethod.equals(RequesterConsts.c_strMethodGet)) {
+            // Add request body if needed
+            if (!strBody.isEmpty())
+            {
                 connection.setRequestProperty("Content-Type",
                         "application/json");
+                connection.setDoOutput(true);
+
+                //Send request
+                DataOutputStream wr = new DataOutputStream(
+                        connection.getOutputStream());
+                wr.writeBytes(strBody);
+                wr.close();
+                Log.d(TAG, "Sent message: " + strBody);
             }
-
-            connection.setUseCaches(false);
-            connection.setDoOutput(true);
-
-            //Send request
-            DataOutputStream wr = new DataOutputStream(
-                    connection.getOutputStream());
-            wr.writeBytes(strBody);
-            wr.close();
-            Log.d(TAG, "Sent message: " + strBody);
 
             //Get Response
             int status = connection.getResponseCode();
