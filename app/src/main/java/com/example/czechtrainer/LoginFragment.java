@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
@@ -19,10 +18,10 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginUI";
 
-    TextView txtString;
     EditText edittext1;
     EditText edittext2;
 
+    LoginActivity loginActivity;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -34,6 +33,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
+        loginActivity = (LoginActivity) getActivity();
         edittext1 = (EditText) rootView.findViewById(R.id.et_email);
         edittext2 = (EditText) rootView.findViewById(R.id.et_password);
         Button buttonLogin = (Button) rootView.findViewById(R.id.btn_login);
@@ -58,7 +58,7 @@ public class LoginFragment extends Fragment {
                 String strTargetURL = Requester.RequesterConsts.c_strURL + Requester.RequesterConsts.c_strLogin;
                 String result = "";
                 try {
-                     result = new TaskProcessRequest().execute(
+                    result = new TaskProcessRequest().execute(
                             strTargetURL,
                             postBody,
                             Requester.RequesterConsts.c_strMethodPost).get();
@@ -98,38 +98,13 @@ public class LoginFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG, "Result: " + result);
-            Toast.makeText(getActivity(), String.valueOf(result), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    // TODO: потом перенести в фрагмент квиза
-    // в onPostExecute должна быть перерисовка всякой дичи для квиза
-    class QuizRequest extends AsyncTask<String, Void, String> {
-
-        String m_strSubsystem = null;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... strParams) {
-            String res = "";
-            try {
-                res = Requester.execRequest(strParams[0], strParams[1], strParams[2]);
-            } catch (Exception e) {
-                Log.e(TAG, "Got exception" + e.getMessage());
-                e.printStackTrace();
+            if (result.contains("message")) {
+                Toast.makeText(getActivity(), "Не удалось войти", Toast.LENGTH_LONG).show();
+                // TODO: remove after debug:
+                loginActivity.SwitchToMain();
+            } else {
+                loginActivity.SwitchToMain();
             }
-            return res;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
         }
     }
-
-
 }

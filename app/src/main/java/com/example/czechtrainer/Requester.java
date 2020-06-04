@@ -12,13 +12,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class Requester
-{
+public class Requester {
 
     private static final String TAG = "REQ";
 
-    public static interface JSONConsts
-    {
+    public static interface JSONConsts {
         public static final String c_strPasswordField = "password";
         public static final String c_strLoginField = "login";
         public static final String c_strEmailField = "email";
@@ -26,8 +24,7 @@ public class Requester
         public static final String c_strSurnameField = "surname";
     }
 
-    public static interface RequesterConsts
-    {
+    public static interface RequesterConsts {
         public static final String c_strMethodPost = "POST";
         public static final String c_strMethodGet = "GET";
         public static final String c_strMethodPut = "PUT";
@@ -44,21 +41,16 @@ public class Requester
     }
 
 
-    public static String formJSONBody(String... astrParams) throws Exception
-    {
+    public static String formJSONBody(String... astrParams) throws Exception {
         // quiz \ login \ profile etc. - ради чего запрос
         String strSubsystems = astrParams[0];
-        if( !strSubsystems.equals("words"))
-        {
-            if( !strSubsystems.equals(RequesterConsts.c_strLogin) && !strSubsystems.equals(RequesterConsts.c_strSignup))
-            {
+        if (!strSubsystems.equals("words")) {
+            if (!strSubsystems.equals(RequesterConsts.c_strLogin) && !strSubsystems.equals(RequesterConsts.c_strSignup)) {
                 // Тут никаких параметров
                 return "";
             }
-            if(strSubsystems.equals(RequesterConsts.c_strLogin))
-            {
-                if(astrParams.length<3)
-                {
+            if (strSubsystems.equals(RequesterConsts.c_strLogin)) {
+                if (astrParams.length < 3) {
                     Log.e(TAG, "Not enough arguments for login");
                     throw new Exception("Not enough arguments for login");
                 }
@@ -68,10 +60,8 @@ public class Requester
 
                 return jsonBody.toString();
             }
-            if(strSubsystems.equals(RequesterConsts.c_strSignup))
-            {
-                if(astrParams.length<6)
-                {
+            if (strSubsystems.equals(RequesterConsts.c_strSignup)) {
+                if (astrParams.length < 6) {
                     Log.e(TAG, "Not enough arguments for signup");
                     throw new Exception("Not enough arguments for signup");
                 }
@@ -84,9 +74,7 @@ public class Requester
 
                 return jsonBody.toString();
             }
-        }
-        else
-        {
+        } else {
             // Для слов много методов - нужно будет определять, с каким работаем
             String strMethod = astrParams[1];
             Log.e(TAG, "formJSONBody() for words not implemented yet");
@@ -101,25 +89,26 @@ public class Requester
     public static String execRequest(
             String strTargetURL,
             String strBody,
-            String astrMethod)
-    {
+            String astrMethod) {
         HttpURLConnection connection = null;
-        try
-        {
+        try {
             //Create connection
             URL url = new URL(strTargetURL);
             connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod(astrMethod);
-            connection.setRequestProperty("accept", "application/json");
-            connection.setRequestProperty("Content-Type",
-                    "application/json");
+            //connection.setRequestProperty("accept", "application/json");
+
+            if (!astrMethod.equals(RequesterConsts.c_strMethodGet)) {
+                connection.setRequestProperty("Content-Type",
+                        "application/json");
+            }
 
             connection.setUseCaches(false);
             connection.setDoOutput(true);
 
             //Send request
-            DataOutputStream wr = new DataOutputStream (
+            DataOutputStream wr = new DataOutputStream(
                     connection.getOutputStream());
             wr.writeBytes(strBody);
             wr.close();
@@ -130,12 +119,9 @@ public class Requester
             InputStream streamReceiver = null;
 
             // Если прилетела ошибка, то результаты не из того стрима прилетают
-            if(status != 400 && status != 500)
-            {
+            if (status < 400) {
                 streamReceiver = connection.getInputStream();
-            }
-            else
-            {
+            } else {
                 streamReceiver = connection.getErrorStream();
             }
 
@@ -147,22 +133,16 @@ public class Requester
                 response.append('\r');
             }
             rd.close();
-            if((status == 400 || status == 500) && BuildConfig.DEBUG)
-            {
+            if (status >= 400 && BuildConfig.DEBUG) {
                 Log.e(TAG, "Bad response, probably error: " + response.toString());
             }
             return response.toString();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e(TAG, "Exception caught: " + e.getMessage());
             e.printStackTrace();
             return null;
-        }
-        finally
-        {
-            if (connection != null)
-            {
+        } finally {
+            if (connection != null) {
                 connection.disconnect();
             }
         }
