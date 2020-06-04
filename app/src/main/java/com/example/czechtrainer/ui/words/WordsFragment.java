@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,20 +25,19 @@ public class WordsFragment extends Fragment {
 //        int BOOKSHELF_ROWS = 5;
 //        int BOOKSHELF_COLUMNS = 5;
 //
-//        TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+//        TableLayout tableLayout = (TableLayout) root.findViewById(R.id.tableLayout);
 //
 //        for (int i = 0; i < BOOKSHELF_ROWS; i++) {
 //
-//            TableRow tableRow = new TableRow(this);
-//            tableRow.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-//                    LayoutParams.WRAP_CONTENT));
-//            tableRow.setBackgroundResource(R.drawable.shelf);
+//            TableRow tableRow = new TableRow(getActivity());
+//            tableRow.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT));
+//            tableRow.setBackgroundResource(R.drawable.et_custom);
 //
 //            for (int j = 0; j < BOOKSHELF_COLUMNS; j++) {
-//                ImageView imageView = new ImageView(this);
-//                imageView.setImageResource(R.drawable.book);
-//
-//                tableRow.addView(imageView, j);
+//                TextView textView = (TextView)root.findViewById(R.id.section_bp_label);
+//                textView.setText("123qwe");
+//                tableRow.addView(textView);
 //            }
 //
 //            tableLayout.addView(tableRow, i);
