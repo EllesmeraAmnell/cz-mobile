@@ -106,7 +106,7 @@ public class WordsFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         TableRow tr = (TableRow) inflater.inflate(R.layout.table_row, null);
         TextView tv = (TextView) tr.findViewById(R.id.colNo);
-        tv.setText(Integer.toString(i) + " ");
+        tv.setText(" " +Integer.toString(i) + " ");
         tv = (TextView) tr.findViewById(R.id.colRuWord);
         tv.setText(object.rus);
         tv = (TextView) tr.findViewById(R.id.colCzWord);

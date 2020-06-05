@@ -5,25 +5,31 @@
 
     <TextView
         android:id="@+id/colNo"
-        android:text="@string/tableNoCol" />
+        android:text="@string/tableNoCol"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/colRuWord"
+        android:textSize="18sp"
         android:text="@string/tableRuWordCol" />
 
     <TextView
         android:id="@+id/colCzWord"
+        android:textSize="18sp"
         android:text="@string/tableCzWordCol" />
 
     <TextView
         android:id="@+id/colPartOfSpeech"
+        android:textSize="18sp"
         android:text="@string/tablePartOfSpeechCol" />
 
     <TextView
         android:id="@+id/colGender"
+        android:textSize="18sp"
         android:text="@string/tableGenderCol" />
 
     <TextView
         android:id="@+id/colForm"
+        android:textSize="18sp"
         android:text="@string/tableFormCol" />
 </TableRow>

@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_quiz"
         android:icon="@drawable/ic_baseline_library_add_check_24"
         android:title="@string/title_quiz" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_words"
         android:icon="@drawable/ic_baseline_menu_book_24"
         android:title="@string/title_words" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="@string/title_profile" />
 
