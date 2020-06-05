@@ -10,14 +10,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 
 import com.example.czechtrainer.R;
 import com.example.czechtrainer.Requester;
-import com.example.czechtrainer.models.QuizObjectModel;
 import com.example.czechtrainer.models.WordsObjectModel;
 
 import org.json.JSONException;
@@ -106,7 +102,7 @@ public class WordsFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         TableRow tr = (TableRow) inflater.inflate(R.layout.table_row, null);
         TextView tv = (TextView) tr.findViewById(R.id.colNo);
-        tv.setText(Integer.toString(i) + " ");
+        tv.setText(" " +Integer.toString(i) + " ");
         tv = (TextView) tr.findViewById(R.id.colRuWord);
         tv.setText(object.rus);
         tv = (TextView) tr.findViewById(R.id.colCzWord);
@@ -118,6 +114,6 @@ public class WordsFragment extends Fragment {
         tv = (TextView) tr.findViewById(R.id.colForm);
         tv.setText(object.form);
 
-        tableLayout.addView(tr); //добавляем созданную строку в таблицу
+        tableLayout.addView(tr);
     }
 }

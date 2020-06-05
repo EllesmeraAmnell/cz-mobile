@@ -31,5 +31,9 @@
     <string name="tablePartOfSpeechCol">Часть речи</string>
     <string name="tableGenderCol">Род</string>
     <string name="tableFormCol">Число</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="role">Роль</string>
+    <string name="logout">Выйти</string>
 
 </resources>

@@ -18,7 +18,7 @@ public class ProfileObjectModel {
 
     private void assignFields() throws JSONException {
         JSONObject jsonObject = new JSONObject(json);
-        this.email = jsonObject.getString("answer");
+        this.email = jsonObject.getString("email");
         this.login = jsonObject.getString("login");
         this.name = jsonObject.getString("name");
         this.surname = jsonObject.getString("surname");

@@ -45,9 +45,17 @@ public class Requester {
         // quiz \ login \ profile etc. - ради чего запрос
         String strSubsystems = astrParams[0];
         if (!strSubsystems.equals("words")) {
-            if (!strSubsystems.equals(RequesterConsts.c_strLogin) && !strSubsystems.equals(RequesterConsts.c_strSignup)) {
-                // Тут никаких параметров
+            if (strSubsystems.equals(RequesterConsts.c_strQuiz)){
                 return "";
+            }
+            if (strSubsystems.equals(RequesterConsts.c_strProfile)){
+                if (astrParams.length < 2) {
+                    Log.e(TAG, "Not enough arguments for login");
+                    throw new Exception("Not enough arguments for login");
+                }
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put(JSONConsts.c_strLoginField, astrParams[1]);
+                return jsonBody.toString();
             }
             if (strSubsystems.equals(RequesterConsts.c_strLogin)) {
                 if (astrParams.length < 3) {
