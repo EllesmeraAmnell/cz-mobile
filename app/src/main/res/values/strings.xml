@@ -24,4 +24,12 @@
     <string name="questionStatocText">Выберите правильный перевод слова</string>
     <string name="nextWord">Следующее слово</string>
 
+    <!-- Words page -->
+    <string name="tableCzWordCol">Чешское слово</string>
+    <string name="tableNoCol">№</string>
+    <string name="tableRuWordCol">Русское слово</string>
+    <string name="tablePartOfSpeechCol">Часть речи</string>
+    <string name="tableGenderCol">Род</string>
+    <string name="tableFormCol">Число</string>
+
 </resources>

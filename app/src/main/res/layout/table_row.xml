@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/colNo"
+        android:text="@string/tableNoCol" />
+
+    <TextView
+        android:id="@+id/colRuWord"
+        android:text="@string/tableRuWordCol" />
+
+    <TextView
+        android:id="@+id/colCzWord"
+        android:text="@string/tableCzWordCol" />
+
+    <TextView
+        android:id="@+id/colPartOfSpeech"
+        android:text="@string/tablePartOfSpeechCol" />
+
+    <TextView
+        android:id="@+id/colGender"
+        android:text="@string/tableGenderCol" />
+
+    <TextView
+        android:id="@+id/colForm"
+        android:text="@string/tableFormCol" />
+</TableRow>

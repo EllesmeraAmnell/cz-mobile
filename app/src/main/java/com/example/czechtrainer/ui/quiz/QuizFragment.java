@@ -31,12 +31,21 @@ public class QuizFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_quiz, container, false);
+
+        assignButtonListeners(root);
+        performQuizRequest();
+
+        return root;
+    }
+
+    private void assignButtonListeners(View root){
         textQuestion = root.findViewById(R.id.text_question);
         buttonOptions[0] = root.findViewById(R.id.button1);
         buttonOptions[1] = root.findViewById(R.id.button2);
         buttonOptions[2] = root.findViewById(R.id.button3);
         buttonOptions[3] = root.findViewById(R.id.button4);
         final Button buttonNext = (Button) root.findViewById(R.id.buttonNext);
+
         buttonNext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 for (Button buttonOption : buttonOptions) {
@@ -45,7 +54,6 @@ public class QuizFragment extends Fragment {
                 performQuizRequest();
             }
         });
-        performQuizRequest();
 
         View.OnClickListener optionClickListener = new View.OnClickListener() {
             public void onClick(View v) {
@@ -64,8 +72,6 @@ public class QuizFragment extends Fragment {
         for (Button buttonOption : buttonOptions) {
             buttonOption.setOnClickListener(optionClickListener);
         }
-
-        return root;
     }
 
     private void performQuizRequest() {
