@@ -1,4 +1,4 @@
-package com.example.czechtrainer;
+package com.example.czechtrainer.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.czechtrainer.LoginActivity;
+import com.example.czechtrainer.R;
+import com.example.czechtrainer.Requester;
 
 import java.util.concurrent.ExecutionException;
 
@@ -100,10 +104,8 @@ public class LoginFragment extends Fragment {
             Log.d(TAG, "Result: " + result);
             if (result.contains("message")) {
                 Toast.makeText(getActivity(), "Не удалось войти", Toast.LENGTH_LONG).show();
-                // TODO: remove after debug:
-                loginActivity.SwitchToMain();
             } else {
-                loginActivity.SwitchToMain();
+                loginActivity.SwitchToMain(edittext1.getText().toString());
             }
         }
     }

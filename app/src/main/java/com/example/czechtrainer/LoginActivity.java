@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.czechtrainer.ui.LoginFragment;
+import com.example.czechtrainer.ui.RegisterFragment;
+
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,8 +27,9 @@ public class LoginActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
     }
 
-    public void SwitchToMain(){
+    public void SwitchToMain(String account){
         Intent myIntent = new Intent(this, MainActivity.class);
+        myIntent.putExtra("account", account);
         startActivity(myIntent);
     }
 

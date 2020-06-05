@@ -22,11 +22,11 @@ import java.util.concurrent.ExecutionException;
 
 public class QuizFragment extends Fragment {
 
+    private static final String TAG = "QuizUI";
+
     private QuizObjectModel quizObjectModel;
     private TextView textQuestion;
     private Button[] buttonOptions = new Button[4];
-
-    private static final String TAG = "QuizUI";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
